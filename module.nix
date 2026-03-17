@@ -10,6 +10,12 @@ let
   hasWebhooks = cfg.webhookFiles != [];
   hostname = config.networking.hostName;
 in {
+  imports = [
+    (lib.mkRenamedOptionModule
+      [ "panopticom" "autoUpdate" "dates" ]
+      [ "panopticom" "autoUpdate" "schedule" ])
+  ];
+
   options.panopticom.autoUpdate = {
     enable = lib.mkEnableOption "automatic NixOS upgrades";
 
@@ -24,7 +30,7 @@ in {
       description = "Path to SSH private key for authenticating git pull.";
     };
 
-    dates = lib.mkOption {
+    schedule = lib.mkOption {
       type = lib.types.str;
       default = "Mon 12:00";
       description = "Systemd calendar expression for when to run upgrades.";
@@ -58,7 +64,7 @@ in {
     system.autoUpgrade = {
       enable = true;
       flake = "/etc/nixos";
-      dates = cfg.dates;
+      dates = cfg.schedule;
       allowReboot = false;
     };
 
