@@ -45,7 +45,7 @@ Configure in your host:
 panopticom.autoUpdate = {
   enable = true;
   gitRepoUrl = "git@github.com:youruser/nixos-config";
-  dates = "Mon 12:00";
+  schedule = "Mon 12:00";
   pinnedInputs = [ "nixpkgs-stable" ];
   uncommittedChanges = "discard";
   webhookFiles = [
@@ -80,7 +80,7 @@ The secret file should contain the raw webhook URL as its value. With sops-nix, 
 | `enable` | bool | `false` | Enable automatic upgrades |
 | `gitRepoUrl` | string | — | Git remote URL (SSH or HTTPS) |
 | `sshKeyFile` | string | `/etc/ssh/ssh_host_ed25519_key` | SSH key for git auth. Falls back to HTTPS if not present |
-| `dates` | string | `"Mon 12:00"` | Systemd calendar expression for upgrade schedule |
+| `schedule` | string | `"Mon 12:00"` | Systemd calendar expression for upgrade schedule |
 | `pinnedInputs` | list of string | `[]` | Flake inputs to exclude from `nix flake update` |
 | `webhookFiles` | list of string | `[]` | Paths to files containing Discord webhook URLs |
 | `uncommittedChanges` | enum | `"discard"` | How to handle local changes before pulling (see below) |
